@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+httpx
+python-dotenv
+websockets
+jinja2
+chromadb
+oss2
+Pillow
+python-multipart
