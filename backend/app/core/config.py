@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     
     # Image Service (configure via .env)
     IMAGE_SERVICE_URL: str = ""
+    IMAGE_EDIT_URL: str = ""
     GEMINI_API_KEY: str = "" # Used as token for image service
     GEMINI_MODEL: str = "gemini-pro" # Added to match .env
 

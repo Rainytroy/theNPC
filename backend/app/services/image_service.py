@@ -14,13 +14,10 @@ from datetime import datetime
 class ImageService:
     def __init__(self):
         # Text to Image (Avatar)
-        # self.api_url = settings.IMAGE_SERVICE_URL
-        self.api_url = "https://platform.longarena.ai/platform/api/google/image/text2image"
-        
+        self.api_url = settings.IMAGE_SERVICE_URL
+
         # Image Edit (Manga)
-        # The POC used "edit", env has "text2image". We should probably add IMAGE_EDIT_URL to settings eventually,
-        # but for now I'll hardcode the verified UAT URL or try to derive it.
-        self.edit_api_url = "https://platform.longarena.ai/platform/api/google/image/edit"
+        self.edit_api_url = settings.IMAGE_EDIT_URL
         self.token = settings.GEMINI_API_KEY
         
     async def generate_avatar(self, prompt: str, world_id: str, npc_id: str, max_retries: int = 3) -> Optional[str]:

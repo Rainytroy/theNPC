@@ -1,3 +1,12 @@
+import sys
+import os
+
+# Fix Windows console encoding (GBK can't handle emoji/unicode)
+if sys.platform == 'win32':
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -18,13 +27,16 @@ logger = logging.getLogger(__name__)
 # 简洁日志输出
 def print_clean_log(client: str, endpoint: str, user_input: str, model: str, response_text: str):
     """以简洁格式打印请求和响应"""
-    separator = "─" * 60
-    print(f"\n{separator}")
-    print(f"[REQUEST] {client} → {endpoint}")
-    print(user_input)
-    print(f"\n[RESPONSE] {model}")
-    print(response_text)
-    print(f"{separator}\n")
+    separator = "-" * 60
+    try:
+        print(f"\n{separator}")
+        print(f"[REQUEST] {client} -> {endpoint}")
+        print(user_input)
+        print(f"\n[RESPONSE] {model}")
+        print(response_text)
+        print(f"{separator}\n")
+    except Exception:
+        print(f"[LOG] {client} -> {endpoint} (output encoding error, skipped)")
 
 # 创建 FastAPI 应用
 app = FastAPI(
